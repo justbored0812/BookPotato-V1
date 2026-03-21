@@ -7,7 +7,11 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { pool } from "./db";
 import connectPg from "connect-pg-simple";
-const PostgresStore = connectPg(session);
+
+// Handle ESM/CJS interop for connect-pg-simple
+const PostgresStore = (connectPg as any).default 
+  ? (connectPg as any).default(session) 
+  : (connectPg as any)(session);
 
 
 const __filename = fileURLToPath(import.meta.url);
