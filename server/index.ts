@@ -69,45 +69,35 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
-  // Serve marketing website BEFORE other routes to avoid conflicts
-  app.get('/marketing', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'marketing-website.html'));
-  });
+// Register routes immediately
+// We don't await the server object here for exports, 
+// but the routes themselves are registered synchronously inside the function calls.
+app.get('/marketing', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'marketing-website.html'));
+});
 
-  // Serve downloads page BEFORE other routes to avoid conflicts
-  app.get('/downloads.html', (req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.sendFile(path.join(__dirname, '..', 'downloads.html'));
-  });
+app.get(['/downloads.html', '/downloads'], (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(path.join(__dirname, '..', 'downloads.html'));
+});
 
-  // Alternative route without .html extension
-  app.get('/downloads', (req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.sendFile(path.join(__dirname, '..', 'downloads.html'));
-  });
+// Create a promise for the server that we can use locally
+const serverPromise = registerRoutes(app);
 
-  const server = await registerRoutes(app);
+// Error handling middleware
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  const status = err.status || err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).json({ message });
+});
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
-  });
-
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
+  serveStatic(app);
+} else {
+  // In development, handle Vite setup and local port listening
+  (async () => {
+    const server = await serverPromise;
     await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
-
-  // In development, start the server normally
-  if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
     const port = 5000;
     server.listen({
       port,
@@ -115,7 +105,7 @@ app.use((req, res, next) => {
     }, () => {
       log(`serving on port ${port}`);
     });
-  }
-})();
+  })();
+}
 
 export default app;
