@@ -8,10 +8,16 @@ import { setupVite, serveStatic, log } from "./vite";
 import { pool } from "./db";
 import connectPg from "connect-pg-simple";
 
-// Handle ESM/CJS interop for connect-pg-simple
-const PostgresStore = (connectPg as any).default 
-  ? (connectPg as any).default(session) 
-  : (connectPg as any)(session);
+// Handle ESM/CJS interop for connect-pg-simple with safety
+let PostgresStore: any;
+try {
+  PostgresStore = (connectPg as any).default 
+    ? (connectPg as any).default(session) 
+    : (connectPg as any)(session);
+  log("Session store initialized correctly");
+} catch (err) {
+  log(`Failed to initialize PostgresStore: ${err.message}`);
+}
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,21 +29,29 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Session configuration
-app.use(session({
-  store: new PostgresStore({
-    pool: pool,
-    createTableIfMissing: false // Already created it
-  }),
+// Session configuration with fallback
+const sessionOptions: any = {
   secret: process.env.SESSION_SECRET || 'bookshare-secret-key-for-development',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === "production", // Enable secure cookies on Vercel
+    secure: process.env.NODE_ENV === "production" || process.env.VERCEL, // Enable secure cookies on Vercel
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
-}));
+};
+
+// Use PostgresStore only if it was successfully initialized
+if (PostgresStore) {
+  sessionOptions.store = new PostgresStore({
+    pool: pool,
+    createTableIfMissing: false
+  });
+} else {
+  console.warn("⚠️ Falling back to MemoryStore (not recommended for production)");
+}
+
+app.use(session(sessionOptions));
 
 app.use((req, res, next) => {
   const start = Date.now();
