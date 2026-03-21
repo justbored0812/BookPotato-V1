@@ -1,0 +1,44 @@
+While creating the society it gives me a error “Invalid Society Data”.
+When I tried to scan the barcode it didn't work. Just tells me that this would integrate with the device camera but i already have a device camera.
+When i tried to add a book manually it says “Invalid Book Data”.
+Profile button is not clickable.
+Buttons on the library page aren't clickable specifically the Add Your First Book and Add Book button.
+After creating the account isn't taking me to the login screen.
+
+Apart from above errors, below are things which i want to add:
+
+Auto fill option for everything. The autofill is there if we have corresponding things in our whole database.
+
+Author- I should be able to search books by the authors name in the browse option.
+
+While adding a society always ask the city in the form of a dropdown where all of the cities in India are located in a searchable format.
+
+Minimum Limit for daily price of lending the book is set by admin.
+
+People can only send requests to create a society. The power to actually create them is with the admin. When sending the request to create a society there should be a criteria that your society should have more than 90 apartments. If it doesn't have more than 90 apartments, tell the requester that they can club their building with other buildings to reach the criteria. For the requester he will have to send the name, number of apartments and location (using gps) of the buildings with which he wants to club his building.
+
+Admin account: Whoever logs in with the email: abhay.maheshwari0812@gmail.com  and password: “Bossbaby#234”  will be the admin.
+
+Forgot Password : add this feature.
+
+Options for login: Should also be able to login using google, X, Instagram and Facebook.
+
+When someone adds a book it is optional to put a image of the book.
+
+Create a messaging interface for people who are lending and borrowing books will automatically be added to each others contact with their names sourced from the database.
+
+At the start when the app loads there should be nice looking screens which explain what this app does.
+
+When creating account the user should be able to add his address
+
+On joining our platform each person should be assigned a specific number according to the number in which they joined
+
+In the login option there should be a option which asks you who helped you get here. User number of person who helped you to be filled in this
+
+There should be a popup which says “If you make sure that 5 people in your society each join our app and upload at least 10 books then you will get 2 months of time where whenever you lend a book to someone you don't have to pay commission to us.” Functionality for the same to be made. The numbers in this can be altered by the admin. Please create a few more things like this which might help populate the platform. Put them at the admins disposal. 
+
+ To make sure that the person has actually helped 5 people do this we can reference it with the number of people who wrote his identification number as the person who helped them get to the app in the login details.
+
+When someone clicks the profile button it shows how many people they have helped get onto the platform. Basis that display a badge below their icon. The more people they have helped the nicer and cooler the badge gets. Eg: if they have 2 people then their badge can be silver, but if they have 6 people then their badge can be platinum. Follow a logic like this.
+
+

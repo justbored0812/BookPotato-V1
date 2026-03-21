@@ -1,0 +1,40 @@
+•	Welcome screens: 
+o	At the start when the app loads there should be nice looking screens which explain what this app does.
+•	Login Page: 
+o	At the log in page, also have the Feature of Forgot password and the associated backends for the same to work. 
+o	At the login page, also have social login options. 
+o	In the login page, there should be an option which asks you who helped you get here. User number of person who helped you to be filled in this
+
+•	Referral and Reward System: We want to promote the platform. Thus  a referral mechanism which allows for users to be incentivized is important. For e,g.
+o	If you make sure that 5 people in your society each join our app and upload at least 10 books then you will get 2 months of time where whenever you lend a book to someone you don't have to pay commission to us. Functionality for the same to be made. The numbers in this can be altered by the admin. Please create a few more things like this which might help populate the platform. Put them at the admins disposal. 
+
+•	To make sure that the person has actually helped 5 people do this we can reference it with the number of people who wrote his identification number as the person who helped them get to the app in the login details.
+
+•	Badge System: When someone clicks the profile button it shows how many people they have helped get onto the platform. Basis that display a badge below their icon. The more people they have helped the nicer and cooler the badge gets. Eg: if they have 2 people then their badge can be silver, but if they have 6 people then their badge can be platinum. Follow a logic like this.
+
+•	Browse Books: 
+o	Author- I should be able to search books by the authors name in the browse option.
+
+•	Society Creation Rules: 
+o	Normal users can only send requests to create a society. The power to actually create them is with the admin only. For the normal user, When sending the request to create a society,  there should be a criteria that your society should have more than 90 apartments. If it doesn't have more than 90 apartments, the system has to tell the normal user they can club their building with other buildings to reach the criteria.  Thus while sending the request for society addition, the user will have to fill up the fields. In case in his society, the number of apartments are lower than 90, then he should have the option of inputting more near by society names that he wants to club, number of apartment in those particular societies and the GPS location of those societies.
+
+•	Adding Society: 
+o	While adding a society always ask the city in the form of a dropdown where all of the cities in India are located in drop down box
+
+•	Profile 
+o	Have the username, password reset options, home address displayed in the same for normal user. For admin, it should have all the controls and ability to change all variables have to be there. 
+•	Adding Books: 
+o	Bar code scanning: If it can work for the laptop also, have the same implemented. 
+•	When someone adds a book it is optional to put a image of the book.
+
+
+•	Browse Books: The books are not displaying. Multiple times have been pointed out. 
+•	Home Screen: 
+o	Data has to come correctly. It is not coming updated. 
+o	All things have to be clickable. Currently are not
+
+•	Notifications: 
+o	Nothing comes on clicking
+
+•	Borrowing and Lending Books: 
+o	Create a messaging interface for people who are lending and borrowing books. You should be able to message someone once you have paid for the book. 

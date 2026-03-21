@@ -1,0 +1,28 @@
+1) Late fees: Each day you are late in returning the book you have to pay for those days as well.	
+
+2)if you sign up with Mumbai as your city, in the societies page at the top there should be a dropdown with all the city names. it should be set to the city you have entered while signing up by default(in this case Mumbai). if a person wants to change their city then they can do so by changing their city in this dropdown. The societies should change as the cities change.
+
+3) Signup Page: We currently have address field. Split it as follows: Flat and Wing Number, Building Name, Detailed Address
+
+4) For those who sign up directly using google, some of the fields that we want we will not have information of. Thus for these people we can add a box in the home page just above the brocks credits box which says "Please update your personal information here to make sure that you can borrow books seamlessly!" and give the fields that we want them to update which are " Flat and Wing Name, Building Name,  Detailed Address, City"
+
+5) Once book has been borrowed, following message should come on screen " Please go to <Book Owners Flat and Wing Number, Building Name> to collect the book. In case you want to call, the phone number is ______" . The Owner of the book should also receive a notification that the borrower will come to collect the book. 
+
+6) The number of members are shown on home page. If some click the number, he should be able to see the list of members. In societies also, the number of members and number of books are show. If some one click number of members, it should show the member list. Similarly if someone clicks the number of books, it should take him to browse section? . Similarly in the chat window, the total number of members is show. If someone clicks. it should show the names of people 
+
+7) Climb the leaderboard: That section can come up
+
+8) Bulk Upload Photo---> Have an i symbol and show a typical photo how it is taken. 
+
+12)Changes in the UI: 
+- The buy brock box in the home page should be replaced with "My Earnings" . 
+- Then right below that there should be a box which replaces the brocks credits box (the big one). The box should display the "My Brocks:_____" and below that there should be some text saying "Brocks: What and How to Earn". 
+- On clicking the above box, it should take you to a page where there are 3 subsection namely: "What Are Brocks", "How To Earn Them" and "Buy Brocks". 
+	- In the "What are brocks" page it should explain what brock are: " They are virtual units that you can use to borrow units instead of 	actual money. Think of them as reward points". 
+	- In the " How to Earn" page: it should show the user the various ways they can earn brocks like referral, adding books etc . 
+	- The " Buy brocks"  page should display the data which is currently there on the buy brocks page. Just one change, the Current Balance text can be small and very less area for that to be used. 
+
+13)Changes in the earnings and spending page: 
+	currently you can only see the money which you have spent but you cant see the brocks that have been used . what i want to happen is that when you click on the earning subsection of the earning page, it shows you 2 more subsections which say "Money" and "Brocks". when you click on the money part it shows you the money part of the books which you have spent, the brocks part (which u have used while paying) is excluded and deducted from the original cost. and the total earning, spending and net worth should only be the money part. When you click the brocks part it shows you the brocks part of the books which you have spent. it should also show you the brocks you have earned and how. the total earning, spending and net worth should be in respect to the brocks.
+
+14) In the home page, below " Recently Added", there is a box stating Total Earnings. Remove that. 

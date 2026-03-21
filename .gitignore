@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+.env
+restore.js
+database_backup.sql
+*.sql
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!components.json
+!vercel.json

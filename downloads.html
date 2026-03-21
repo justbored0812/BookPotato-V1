@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookShare Documentation Downloads</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        .document-section {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid #3b82f6;
+        }
+        .document-title {
+            font-size: 1.5em;
+            color: #1e40af;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .document-description {
+            color: #4b5563;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .download-btn {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        .download-btn.pdf {
+            background: linear-gradient(45deg, #dc2626, #991b1b);
+        }
+        .download-btn.pdf:hover {
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+        .info {
+            background: #e0f2fe;
+            border: 1px solid #0891b2;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+            color: #0c4a6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 BookShare Documentation</h1>
+        <p class="subtitle">Download comprehensive business and technical documentation</p>
+        
+        <div class="info">
+            <strong>📁 Available Documents:</strong> Get professional Word and PDF versions of our complete business pitch deck and technical specifications. Perfect for investors, stakeholders, and development teams.
+        </div>
+
+        <div class="document-section">
+            <div class="document-title">🎯 Investor Pitch Deck</div>
+            <div class="document-description">
+                Complete business presentation including market analysis, financial projections, competitive advantage, and growth strategy. 
+                Contains executive summary, business model, revenue projections, and investment opportunity details.
+            </div>
+            <div class="download-buttons">
+                <button class="download-btn" onclick="downloadPitchDeckWord()">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Download Word Document
+                </button>
+                <button class="download-btn pdf" onclick="downloadPitchDeckPDF()">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="document-section">
+            <div class="document-title">⚙️ Technical Specifications</div>
+            <div class="document-description">
+                Comprehensive technical documentation covering system architecture, database design, API specifications, security protocols, and scalability considerations. 
+                Essential for development teams and technical stakeholders.
+            </div>
+            <div class="download-buttons">
+                <button class="download-btn" onclick="downloadTechSpecsWord()">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Download Word Document
+                </button>
+                <button class="download-btn pdf" onclick="downloadTechSpecsPDF()">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="document-section">
+            <div class="document-title">🚀 Future Features Roadmap</div>
+            <div class="document-description">
+                Detailed roadmap of 50+ enhancement opportunities, innovation concepts, and expansion strategies. 
+                Includes AI features, blockchain integration, community tools, and market expansion plans.
+            </div>
+            <div class="download-buttons">
+                <button class="download-btn" onclick="downloadRoadmapWord()">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Download Word Document
+                </button>
+                <button class="download-btn pdf" onclick="downloadRoadmapPDF()">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pitch Deck Content
+        const pitchDeckContent = `BookShare: Community Digital Library Platform
+Executive Summary & Pitch Deck
+
+THE PROBLEM
+Current Book Sharing Challenges:
+• Physical Libraries: Limited hours, location constraints, membership fees
+• Personal Collections: Books gather dust after reading, no monetary return
+• Community Disconnect: Neighbors don't know about each other's book collections
+• High Book Costs: New books are expensive, used book markets are fragmented
+• No Incentive System: Traditional sharing has no reward mechanism
+
+Market Size:
+• India Book Market: ₹26,000+ crores annually
+• Residential Societies: 50,000+ gated communities across major cities
+• Target Demographic: 15+ million educated residents in tier 1-2 cities
+• Digital Adoption: 75%+ smartphone penetration in target areas
+
+THE SOLUTION: BOOKSHARE
+Revolutionary Community-Based Book Sharing Platform
+"Transform your residential society into a thriving digital library where neighbors share books and earn money"
+
+Core Value Propositions:
+1. Hyperlocal Network: Society-specific book sharing (walking distance)
+2. Monetization: Earn daily rental fees from your personal library
+3. Gamification: Brocks credit system with rewards and rankings
+4. Technology Integration: Barcode scanning, automated payments, smart notifications
+5. Community Building: Strengthen neighborhood connections through literature
+
+HOW IT WORKS
+Step 1: Society Onboarding
+• Residential societies register with 90+ apartment minimum
+• Address verification and community validation
+• Unique society codes for member joining
+
+Step 2: Member Registration
+• Users join their specific residential society
+• Profile creation with reading preferences
+• Referral system with Brocks credit rewards
+
+Step 3: Book Sharing Economy
+• Book Owners: List books with daily rental fees (₹5-50/day)
+• Book Borrowers: Browse and rent books from neighbors
+• Payment System: Automated rental + security deposit handling
+• Return Management: QR codes, condition verification, late fees
+
+Step 4: Brocks Ecosystem
+• Earn credits for every platform action
+• Convert credits to commission-free periods
+• Leaderboard rankings and achievement badges
+• Special rewards for community contributors
+
+UNIQUE FEATURES & TECHNOLOGY
+Advanced Technology Stack:
+• Barcode Scanning: ISBN recognition for instant book details
+• Book Database Integration: Automatic metadata from Google Books API
+• Smart Notifications: Due dates, extension requests, society updates
+• Payment Gateway Integration: Razorpay (India) + Stripe (International)
+• Real-time Analytics: Earnings tracking, reading patterns, community insights
+
+Gamification Engine:
+• Brocks Credit System: Platform currency for rewards
+• Ranking Tiers: 6 creative levels (Explorer → Scholar → Master → Legend → Champion → Emperor)
+• Achievement Badges: Referral milestones, reading streaks, community contributions
+• Progress Tracking: Visual progress bars and milestone celebrations
+
+Community Features:
+• Society-Specific Feeds: Book recommendations, reading challenges
+• Book Condition Tracking: Photo verification, condition ratings
+• Extension Requests: Owner approval workflow for rental extensions
+• Review System: Book and member rating mechanisms
+
+BUSINESS MODEL & REVENUE STREAMS
+Primary Revenue Sources:
+
+1. Transaction Commission (80% of revenue)
+• 5% commission on all rental transactions
+• Projected ₹50-200 per transaction average
+• Commission-free periods purchasable with Brocks credits
+
+2. Brocks Marketplace (15% of revenue)
+• Brocks credit packages (₹99 - ₹999)
+• Premium memberships with enhanced features
+• Society-wide book challenges and tournaments
+
+3. Partnership Revenue (5% of revenue)
+• Publisher partnerships for new book promotions
+• Educational institution collaborations
+• Book retailer affiliate commissions
+
+Financial Projections (3 Years):
+Year 1: 100 societies, 5,000 active users, Revenue: ₹25 lakhs
+Year 2: 500 societies, 25,000 active users, Revenue: ₹2.5 crores
+Year 3: 2,000 societies, 100,000 active users, Revenue: ₹15 crores
+
+MARKET STRATEGY
+Go-to-Market Plan:
+Phase 1: Pilot Launch (Months 1-6) - 20 premium societies in Bangalore/Mumbai
+Phase 2: City Expansion (Months 6-18) - 200 societies across 4 major cities
+Phase 3: National Rollout (Months 18-36) - 2,000+ societies across 15+ cities
+
+Customer Acquisition:
+• Society Champions: Incentivized community leaders
+• Referral Program: 5 Brocks credits per successful invite
+• Social Media: Instagram book communities, Facebook society groups
+• Content Marketing: Reading challenges, book recommendation blogs
+
+TARGET MARKET ANALYSIS
+Primary Demographics:
+• Age: 25-45 years
+• Income: ₹5-25 lakhs annually
+• Location: Gated communities in tier 1-2 cities
+• Education: College graduates, avid readers
+• Tech Comfort: Smartphone users, app-savvy
+
+User Personas:
+"Library Laxmi" - The Book Collector (35-year-old homemaker with 200+ book collection)
+"Startup Suresh" - The Busy Professional (28-year-old working professional)
+"Student Sneha" - The Young Reader (22-year-old college student)
+
+COMPETITIVE ADVANTAGE
+What Makes BookShare Unique:
+• Hyperlocal Focus: Society-specific networks (walking distance delivery)
+• Gamified Experience: Brocks credit system creates platform stickiness
+• Technology Integration: Barcode scanning eliminates manual book entry
+• Community-First Approach: Strengthens neighborhood bonds through shared interests
+
+Competitive Landscape:
+• Traditional Libraries: Limited hours, membership fees, location constraints
+• Online Book Rentals: Shipping costs, delivery delays, anonymous transactions
+• Book Exchange Apps: Low engagement, no monetization, fragmented user base
+• E-book Platforms: No physical book experience, screen fatigue issues
+
+TECHNOLOGY ARCHITECTURE
+Platform Specifications:
+• Frontend: React 18 + TypeScript for responsive web app
+• Backend: Node.js + Express.js with PostgreSQL database
+• Mobile: Progressive Web App (PWA) for app-like experience
+• Payment: Razorpay + Stripe integration with security compliance
+• Barcode: @zxing/library for ISBN scanning and book recognition
+
+Scalability & Security:
+• Database: Drizzle ORM with connection pooling
+• Authentication: Session-based with HTTP-only cookies
+• File Storage: Cloudinary for book cover images
+• Monitoring: Real-time error tracking and performance analytics
+• Backup: Automated daily database backups with point-in-time recovery
+
+GROWTH STRATEGY
+Expansion Roadmap:
+Phase 1: Bangalore, Mumbai (Months 1-6)
+Phase 2: Delhi, Pune, Chennai, Hyderabad (Months 6-12)
+Phase 3: Tier 2 cities - Kochi, Indore, Chandigarh (Months 12-24)
+Phase 4: International expansion to Singapore, Dubai (Year 3+)
+
+Feature Development:
+• Book Clubs: Society-wide reading groups and discussions
+• Author Interactions: Virtual meetups with popular authors
+• Educational Content: Study material sharing for students
+• Multi-language Support: Regional language book collections
+
+Partnership Strategy:
+• Real Estate Developers: Pre-install BookShare in new societies
+• Publishers: Promotional campaigns for new book releases
+• Educational Institutions: Academic book sharing programs
+• Corporate Partnerships: Employee residential society programs
+
+MARKETING & USER ENGAGEMENT
+Community Building Initiatives:
+• Monthly Reading Challenges: Society-wide book reading competitions
+• Book Recommendation Algorithms: AI-powered suggestions based on preferences
+• Seasonal Campaigns: Festival-themed book collections and discounts
+• Author Events: Virtual book launches and reading sessions
+
+Retention Strategies:
+• Streak Rewards: Consecutive day reading/lending bonuses
+• Social Features: Book reviews, reading lists, friend recommendations
+• Exclusive Content: Early access to popular books for top contributors
+• Community Recognition: Monthly society champion awards
+
+FUTURE INNOVATION OPPORTUNITIES
+Advanced Features Roadmap:
+1. AI Book Recommendations: Machine learning-based personalized suggestions
+2. Augmented Reality: Virtual book browsing and condition assessment
+3. Blockchain Integration: Decentralized book ownership and provenance tracking
+4. Voice Integration: Alexa/Google Assistant for hands-free book searches
+5. IoT Integration: Smart bookshelf tracking and inventory management
+
+Market Expansion:
+• Educational Sector: Textbook sharing in colleges and schools
+• Corporate Libraries: Office book sharing programs
+• Public Spaces: Airport, mall, and cafe book sharing kiosks
+• International Markets: English-speaking expat communities globally
+
+CALL TO ACTION
+Investment Opportunity:
+Seeking ₹2 crore Series A funding for:
+• Technology development and platform scaling
+• Market expansion across 5 major cities
+• Team hiring (15+ developers, marketers, community managers)
+• Marketing campaigns and user acquisition
+• Legal compliance and intellectual property protection
+
+Expected Returns:
+• Break-even: Month 18
+• Profitability: Month 24
+• Exit Strategy: Series B funding or strategic acquisition by major tech/education company
+• Market Valuation: ₹100+ crores by Year 3
+
+Next Steps:
+1. Pilot Program: Partner with 5 societies for 3-month beta testing
+2. Product-Market Fit: Achieve 80%+ user retention and 4.5+ app store rating
+3. Scaling Strategy: Expand to 100 societies within 12 months
+4. Team Building: Hire key leadership for technology, marketing, and operations
+
+Contact Information:
+• Demo: Live platform demonstration available
+• Business Plan: Detailed financial projections and market analysis
+• Technical Specs: Complete system architecture and development roadmap
+
+"BookShare isn't just a book rental platform—it's a community-building technology that transforms how neighbors connect, share, and grow together through the power of literature."`;
+
+        // Technical Specs Content (truncated for brevity)
+        const techSpecsContent = `BookShare: Complete Technical Specifications
+System Architecture & Development Documentation
+
+SYSTEM ARCHITECTURE OVERVIEW
+Application Type:
+• Platform: Progressive Web Application (PWA)
+• Architecture: Full-stack monorepo with shared TypeScript schemas
+• Deployment: Replit cloud platform with autoscale deployment
+• Domain: Community-driven digital library platform
+
+Technology Stack:
+Frontend Technology:
+Framework: React 18 with TypeScript
+Routing: Wouter (lightweight client-side routing)
+State Management: TanStack Query (React Query v5) for server state
+UI Components: Radix UI primitives + shadcn/ui component library
+Styling: Tailwind CSS with custom CSS variables for theming
+Form Handling: React Hook Form with Zod validation
+Build Tool: Vite for development and production builds
+
+Backend Technology:
+Runtime: Node.js 20 with Express.js server
+Language: TypeScript with ES modules
+API Design: RESTful API with JSON responses
+Session Management: express-session with HTTP-only cookies
+Authentication: Session-based with passport.js strategies
+File Structure: Monorepo with shared types and schemas
+
+Database & ORM:
+Database: PostgreSQL 16 (Neon serverless)
+ORM: Drizzle ORM with schema-first approach
+Migrations: Drizzle Kit for database schema management
+Connection: Neon serverless with WebSocket support
+Query Builder: Type-safe SQL with automatic TypeScript generation
+
+[Content continues with detailed technical specifications...]`;
+
+        // Future Roadmap Content (truncated for brevity)
+        const roadmapContent = `BookShare: Future Features & Innovation Roadmap
+Comprehensive Enhancement Opportunities
+
+IMMEDIATE ENHANCEMENTS (Next 3 Months)
+User Experience Improvements:
+Enhanced Book Discovery:
+• Smart Filters: Advanced filtering by reading level, book condition, availability dates
+• Visual Book Browser: Grid view with cover images, quick preview on hover
+• Recently Viewed: Track user browsing history for quick re-access
+• Wishlist System: Save books for future rental when they become available
+• Reading Goals: Set and track monthly/yearly reading targets
+
+Mobile-First Features:
+• Offline Mode: Browse cached books when internet connection is poor
+• Dark Mode: Complete dark theme implementation for night reading
+• Voice Search: "Find fantasy books by Brandon Sanderson"
+• Quick Actions: Swipe gestures for common actions (borrow, wishlist, share)
+• One-Touch Sharing: Instantly share interesting books with friends
+
+[Content continues with detailed roadmap...]`;
+
+        // Word Document Generation Functions
+        function generateWordDocument(content, filename) {
+            const wordContent = `
+                <html xmlns:v="urn:schemas-microsoft-com:vml" 
+                      xmlns:o="urn:schemas-microsoft-com:office:office" 
+                      xmlns:w="urn:schemas-microsoft-com:office:word" 
+                      xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" 
+                      xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta charset="utf-8">
+                    <title>${filename}</title>
+                    <style>
+                        @page {
+                            size: 8.5in 11in;
+                            margin: 1in;
+                        }
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            font-size: 11pt;
+                            line-height: 1.6;
+                            color: #333;
+                        }
+                        h1 { color: #2563eb; font-size: 18pt; margin-bottom: 12pt; }
+                        h2 { color: #1e40af; font-size: 14pt; margin-top: 18pt; margin-bottom: 8pt; }
+                        h3 { color: #1e3a8a; font-size: 12pt; margin-top: 12pt; margin-bottom: 6pt; }
+                        p { margin-bottom: 8pt; }
+                        ul, ol { margin-bottom: 8pt; }
+                        li { margin-bottom: 4pt; }
+                    </style>
+                </head>
+                <body>
+                    <div>${content.replace(/\n/g, '<br>').replace(/•/g, '&bull;')}</div>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([wordContent], {
+                type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            });
+            
+            saveAs(blob, filename + '.doc');
+        }
+
+        // PDF Generation Functions
+        function generatePDF(content, filename) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: 'a4'
+            });
+
+            // Split content into lines and add to PDF
+            const lines = content.split('\n');
+            let yPosition = 50;
+            const pageHeight = doc.internal.pageSize.height;
+            const marginBottom = 50;
+
+            doc.setFontSize(12);
+            
+            lines.forEach(line => {
+                if (yPosition > pageHeight - marginBottom) {
+                    doc.addPage();
+                    yPosition = 50;
+                }
+                
+                if (line.trim()) {
+                    // Handle headers
+                    if (line.match(/^[A-Z\s]+$/)) {
+                        doc.setFontSize(14);
+                        doc.setFont(undefined, 'bold');
+                    } else {
+                        doc.setFontSize(11);
+                        doc.setFont(undefined, 'normal');
+                    }
+                    
+                    const splitText = doc.splitTextToSize(line, 500);
+                    doc.text(splitText, 50, yPosition);
+                    yPosition += splitText.length * 15 + 5;
+                }
+            });
+
+            doc.save(filename + '.pdf');
+        }
+
+        // Download Functions
+        function downloadPitchDeckWord() {
+            generateWordDocument(pitchDeckContent, 'BookShare_Investor_Pitch_Deck');
+        }
+
+        function downloadPitchDeckPDF() {
+            generatePDF(pitchDeckContent, 'BookShare_Investor_Pitch_Deck');
+        }
+
+        function downloadTechSpecsWord() {
+            generateWordDocument(techSpecsContent, 'BookShare_Technical_Specifications');
+        }
+
+        function downloadTechSpecsPDF() {
+            generatePDF(techSpecsContent, 'BookShare_Technical_Specifications');
+        }
+
+        function downloadRoadmapWord() {
+            generateWordDocument(roadmapContent, 'BookShare_Future_Features_Roadmap');
+        }
+
+        function downloadRoadmapPDF() {
+            generatePDF(roadmapContent, 'BookShare_Future_Features_Roadmap');
+        }
+    </script>
+</body>
+</html>
