@@ -5,6 +5,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { pool } from "./db";
+import connectPg from "connect-pg-simple";
+const PostgresStore = connectPg(session);
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,13 +21,17 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Session configuration
 app.use(session({
+  store: new PostgresStore({
+    pool: pool,
+    createTableIfMissing: false // Already created it
+  }),
   secret: process.env.SESSION_SECRET || 'bookshare-secret-key-for-development',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Set to true in production with HTTPS
+    secure: process.env.NODE_ENV === "production", // Enable secure cookies on Vercel
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
 }));
 
