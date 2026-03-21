@@ -1,5 +1,5 @@
-import { Pool as NeonPool } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
+import { Pool } from 'pg';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from "@shared/schema";
 
 if (!process.env.DATABASE_URL) {
@@ -8,9 +8,9 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-// Optimized for Neon Serverless
-export const pool = new NeonPool({ 
+export const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false } // Always use SSL for Neon
 });
 
 export const db = drizzle(pool, { schema });

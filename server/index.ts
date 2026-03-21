@@ -1,24 +1,9 @@
-import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-import { pool } from "./db";
-import connectPg from "connect-pg-simple";
-
-// Handle ESM/CJS interop for connect-pg-simple with safety
-let PostgresStore: any;
-try {
-  PostgresStore = (connectPg as any).default 
-    ? (connectPg as any).default(session) 
-    : (connectPg as any)(session);
-  log("Session store initialized correctly");
-} catch (err) {
-  log(`Failed to initialize PostgresStore: ${err.message}`);
-}
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,29 +14,18 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Session configuration with fallback
-const sessionOptions: any = {
+// Session configuration (in-memory - simple and reliable on Vercel)
+app.use(session({
   secret: process.env.SESSION_SECRET || 'bookshare-secret-key-for-development',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === "production" || process.env.VERCEL, // Enable secure cookies on Vercel
+    secure: !!process.env.VERCEL, // secure on Vercel (HTTPS), not locally
     httpOnly: true,
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    sameSite: process.env.VERCEL ? 'none' : 'lax' // required for cross-site cookies on Vercel
   }
-};
-
-// Use PostgresStore only if it was successfully initialized
-if (PostgresStore) {
-  sessionOptions.store = new PostgresStore({
-    pool: pool,
-    createTableIfMissing: false
-  });
-} else {
-  console.warn("⚠️ Falling back to MemoryStore (not recommended for production)");
-}
-
-app.use(session(sessionOptions));
+}));
 
 app.use((req, res, next) => {
   const start = Date.now();
