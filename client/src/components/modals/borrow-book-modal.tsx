@@ -66,12 +66,25 @@ interface BorrowBookModalProps {
   initialTransactionType?: "borrow" | "buy";
 }
 
-const durationOptions = [
-  { value: "3", label: "3 days", days: 3 },
-  { value: "7", label: "1 week", days: 7 },
-  { value: "14", label: "2 weeks", days: 14 },
-  { value: "30", label: "1 month", days: 30 },
-];
+const getDurationOptions = (maxDays: number) => {
+  const options = [
+    { value: "3", label: "3 days", days: 3 },
+    { value: "7", label: "1 week", days: 7 },
+    { value: "14", label: "2 weeks", days: 14 },
+    { value: "30", label: "1 month", days: 30 },
+    { value: "60", label: "2 months", days: 60 },
+    { value: "90", label: "3 months", days: 90 },
+    { value: "180", label: "6 months", days: 180 },
+  ];
+  
+  let filtered = options.filter(opt => opt.days <= maxDays);
+  
+  if (!filtered.some(opt => opt.days === maxDays) && maxDays > 0) {
+    filtered.push({ value: maxDays.toString(), label: `${maxDays} days (Max)`, days: maxDays });
+  }
+  
+  return filtered.sort((a, b) => a.days - b.days);
+};
 
 export default function BorrowBookModal({ book, open, onOpenChange, initialTransactionType = "borrow" }: BorrowBookModalProps) {
   const { toast } = useToast();
@@ -94,6 +107,9 @@ export default function BorrowBookModal({ book, open, onOpenChange, initialTrans
     staleTime: 30 * 1000,
     refetchOnWindowFocus: true,
   });
+
+  const maxRentalDays = (platformSettings as any)?.maxRentalDays || 30;
+  const durationOptions = getDurationOptions(maxRentalDays);
 
   const form = useForm<BorrowFormData>({
     resolver: zodResolver(borrowSchema),
@@ -535,7 +551,7 @@ export default function BorrowBookModal({ book, open, onOpenChange, initialTrans
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-text-secondary">Platform fee (5%)</span>
+                          <span className="text-text-secondary">Platform fee ({(platformSettings as any)?.commissionRate || 5}%)</span>
                           <span className="flex items-center">
                             {watchedPaymentMethod === 'brocks' ? (
                               <>
@@ -566,7 +582,7 @@ export default function BorrowBookModal({ book, open, onOpenChange, initialTrans
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-text-secondary">Platform fee (5%)</span>
+                          <span className="text-text-secondary">Platform fee ({(platformSettings as any)?.commissionRate || 5}%)</span>
                           <span className="flex items-center">
                             {watchedPaymentMethod === 'brocks' ? (
                               <>

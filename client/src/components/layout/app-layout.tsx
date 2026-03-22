@@ -89,10 +89,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-4 py-3 sticky top-0 z-30">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <img src={logoImage} alt="BookPotato" className="h-8 w-8 object-contain rounded-full" />
-            <h1 className="text-lg font-semibold text-text-primary">BookPotato</h1>
-          </div>
+          <Link href="/">
+            <div className="flex items-center space-x-3 cursor-pointer">
+              <img src={logoImage} alt="BookPotato" className="h-8 w-8 object-contain rounded-full" />
+              <h1 className="text-lg font-semibold text-text-primary">BookPotato</h1>
+            </div>
+          </Link>
           <div className="flex items-center space-x-1 sm:space-x-3 min-w-0">
             <Link href="/earnings">
               <Button variant="ghost" size="sm" className="flex items-center space-x-1 px-1 sm:px-2 shrink-0">

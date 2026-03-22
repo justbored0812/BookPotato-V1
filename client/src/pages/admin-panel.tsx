@@ -661,17 +661,17 @@ export default function AdminPanel() {
 
       {/* Settings Panel */}
       <Tabs defaultValue="settings" className="space-y-4">
-        <TabsList className="grid grid-cols-2 md:grid-cols-5 h-auto gap-2 p-2">
-          <TabsTrigger value="settings">Platform Settings</TabsTrigger>
-          <TabsTrigger value="brocks">Brocks Rewards</TabsTrigger>
-          <TabsTrigger value="brocks-packages">Brocks Packages</TabsTrigger>
-          <TabsTrigger value="page-content">Page Content</TabsTrigger>
-          <TabsTrigger value="manage-hubs">Manage Hubs</TabsTrigger>
-          <TabsTrigger value="societies">Society Requests</TabsTrigger>
-          <TabsTrigger value="schools">School Requests</TabsTrigger>
-          <TabsTrigger value="offices">Office Requests</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="feedback">
+        <TabsList className="flex flex-wrap justify-start h-auto gap-2 p-2 bg-gray-100">
+          <TabsTrigger value="settings" className="whitespace-nowrap">Platform Settings</TabsTrigger>
+          <TabsTrigger value="brocks" className="whitespace-nowrap">Brocks Rewards</TabsTrigger>
+          <TabsTrigger value="brocks-packages" className="whitespace-nowrap">Brocks Packages</TabsTrigger>
+          <TabsTrigger value="page-content" className="whitespace-nowrap">Page Content</TabsTrigger>
+          <TabsTrigger value="manage-hubs" className="whitespace-nowrap">Manage Hubs</TabsTrigger>
+          <TabsTrigger value="societies" className="whitespace-nowrap">Society Requests</TabsTrigger>
+          <TabsTrigger value="schools" className="whitespace-nowrap">School Requests</TabsTrigger>
+          <TabsTrigger value="offices" className="whitespace-nowrap">Office Requests</TabsTrigger>
+          <TabsTrigger value="analytics" className="whitespace-nowrap">Analytics</TabsTrigger>
+          <TabsTrigger value="feedback" className="whitespace-nowrap flex items-center">
             <MessageSquare className="h-4 w-4 mr-2" />
             Feedback
           </TabsTrigger>

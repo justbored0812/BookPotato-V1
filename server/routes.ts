@@ -115,23 +115,29 @@ const loginSchema = z.object({
 });
 
 // Google OAuth configuration - dynamically detect domain
-const getCallbackURL = () => {
-  // Priority: 1. Production domain, 2. REPLIT_DOMAINS, 3. Fallback dev domain
-  const productionDomain = process.env.PRODUCTION_DOMAIN; // Set this to bookpotato.in in production
+const getCallbackURL = (req?: any) => {
+  // If we have a request object, use its host (best for dynamic environments like Replit/Localhost)
+  if (req && req.headers && req.headers.host) {
+    const protocol = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+    const host = req.headers.host;
+    return `${protocol}://${host}/api/auth/google/callback`;
+  }
+
+  // Fallback to environment variables
+  const productionDomain = process.env.PRODUCTION_DOMAIN; // e.g., bookpotato.in
   const replitDomains = process.env.REPLIT_DOMAINS;
-  const devDomain = '59203db4-a967-4b1c-b1d8-9d66f27d10d9-00-3bzw6spzdofx2.picard.replit.dev';
+  const devDomain = 'localhost:5000'; // Default to localhost for development
   
   let domain = devDomain;
   
   if (productionDomain) {
     domain = productionDomain;
   } else if (replitDomains) {
-    // REPLIT_DOMAINS can contain multiple domains, use the first one
     domain = replitDomains.split(',')[0].trim();
   }
   
-  // Ensure HTTPS protocol
-  const baseUrl = domain.startsWith('http') ? domain : `https://${domain}`;
+  const protocol = (productionDomain || replitDomains) ? 'https' : 'http';
+  const baseUrl = domain.startsWith('http') ? domain : `${protocol}://${domain}`;
   return `${baseUrl}/api/auth/google/callback`;
 };
 
@@ -149,7 +155,8 @@ const razorpay = new Razorpay({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID || "",
   clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-  callbackURL: getCallbackURL()
+  callbackURL: getCallbackURL(),
+  proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     // Check if user exists
@@ -254,16 +261,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Google OAuth routes
   app.get("/api/auth/google", (req, res, next) => {
+    const callbackURL = getCallbackURL(req);
     console.log("Initiating Google OAuth with Client ID:", process.env.GOOGLE_CLIENT_ID?.substring(0, 20) + "...");
-    console.log("Callback URL should be:", getCallbackURL());
+    console.log("Dynamically determined Callback URL:", callbackURL);
+    
     passport.authenticate("google", {
-      scope: ["profile", "email"]
+      scope: ["profile", "email"],
+      callbackURL: callbackURL
     })(req, res, next);
   });
 
-  app.get("/api/auth/google/callback", 
-    passport.authenticate("google", { failureRedirect: "/auth?error=oauth_failed" }),
-    async (req, res) => {
+  app.get("/api/auth/google/callback", (req, res, next) => {
+    const callbackURL = getCallbackURL(req);
+    console.log("Handling Google OAuth callback with URL:", callbackURL);
+    
+    passport.authenticate("google", { 
+      failureRedirect: "/auth?error=oauth_failed",
+      callbackURL: callbackURL
+    })(req, res, next);
+  }, async (req, res) => {
       // OAuth success - manually handle session and redirect
       console.log("Google OAuth success:", req.user);
       req.session.userId = (req.user as any)?.id;
@@ -2657,11 +2673,11 @@ Submitted on: ${new Date().toLocaleString()}
       const userId = req.session.userId!;
       
       // Get all rentals where user was lender (earnings)
-      const lentRentals = await storage.getRentalsByLender(userId);
+      const lentRentals = await storage.getRentalsByLender(userId, true);
       console.log(`💰 Earnings API - User ${userId} - Lent rentals:`, lentRentals.length);
       
       // Get all rentals where user was borrower (spendings)
-      const borrowedRentals = await storage.getRentalsByBorrower(userId);
+      const borrowedRentals = await storage.getRentalsByBorrower(userId, true);
       console.log(`💰 Earnings API - User ${userId} - Borrowed rentals:`, borrowedRentals.length);
       
       // Get all credit transactions for Brocks earnings/spending

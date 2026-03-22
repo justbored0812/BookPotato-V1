@@ -51,8 +51,8 @@ export interface IStorage {
   
   // Rentals
   getRental(id: number): Promise<RentalWithDetails | undefined>;
-  getRentalsByBorrower(borrowerId: number): Promise<RentalWithDetails[]>;
-  getRentalsByLender(lenderId: number): Promise<RentalWithDetails[]>;
+  getRentalsByBorrower(borrowerId: number, includeReturned?: boolean): Promise<RentalWithDetails[]>;
+  getRentalsByLender(lenderId: number, includeReturned?: boolean): Promise<RentalWithDetails[]>;
   getActiveRentals(userId: number): Promise<RentalWithDetails[]>;
   createRental(rental: InsertBookRental): Promise<BookRental>;
   updateRental(id: number, updates: Partial<BookRental>): Promise<BookRental | undefined>;
@@ -683,7 +683,7 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
-  async getRentalsByBorrower(borrowerId: number): Promise<RentalWithDetails[]> {
+  async getRentalsByBorrower(borrowerId: number, includeReturned: boolean = false): Promise<RentalWithDetails[]> {
     try {
       console.log('🔍 DatabaseStorage: Fetching borrowed books for user:', borrowerId);
       
@@ -735,10 +735,14 @@ export class DatabaseStorage implements IStorage {
         .from(bookRentals)
         .innerJoin(books, eq(bookRentals.bookId, books.id))
         .innerJoin(users, eq(bookRentals.lenderId, users.id))
-        .where(and(
-          eq(bookRentals.borrowerId, borrowerId),
-          ne(bookRentals.status, 'returned')
-        ))
+        .where(
+          includeReturned
+            ? eq(bookRentals.borrowerId, borrowerId)
+            : and(
+                eq(bookRentals.borrowerId, borrowerId),
+                ne(bookRentals.status, 'returned')
+              )
+        )
         .orderBy(desc(bookRentals.createdAt));
       
       console.log('📚 DatabaseStorage: Found borrowed books after join:', results.length);
@@ -788,7 +792,7 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
-  async getRentalsByLender(lenderId: number): Promise<RentalWithDetails[]> {
+  async getRentalsByLender(lenderId: number, includeReturned: boolean = false): Promise<RentalWithDetails[]> {
     try {
       console.log('🔍 Fetching lent books for user:', lenderId);
       
@@ -828,10 +832,14 @@ export class DatabaseStorage implements IStorage {
         .from(bookRentals)
         .innerJoin(books, eq(bookRentals.bookId, books.id))
         .innerJoin(users, eq(bookRentals.borrowerId, users.id))
-        .where(and(
-          eq(bookRentals.lenderId, lenderId),
-          ne(bookRentals.status, 'returned')
-        ))
+        .where(
+          includeReturned
+            ? eq(bookRentals.lenderId, lenderId)
+            : and(
+                eq(bookRentals.lenderId, lenderId),
+                ne(bookRentals.status, 'returned')
+              )
+        )
         .orderBy(desc(bookRentals.createdAt));
       
       console.log('📚 Found lent books:', results.length);

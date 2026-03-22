@@ -110,7 +110,7 @@ export default function MyWishlist() {
               Start adding books you'd like to read to your wishlist
             </p>
             <Button 
-              onClick={() => window.location.href = '/societies'}
+              onClick={() => window.location.href = '/browse'}
               className="bg-blue-600 hover:bg-blue-700"
             >
               Browse Books
