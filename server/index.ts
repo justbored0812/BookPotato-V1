@@ -21,10 +21,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: !!process.env.VERCEL, // secure on Vercel (HTTPS), not locally
+    secure: process.env.NODE_ENV === "production", // secure in production (HTTPS)
     httpOnly: true,
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    sameSite: process.env.VERCEL ? 'none' : 'lax' // required for cross-site cookies on Vercel
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax' 
   }
 }));
 

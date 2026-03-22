@@ -2840,18 +2840,6 @@ export class MemStorage implements IStorage {
       throw error;
     }
   }
-
-  async markDirectMessagesAsRead(userId1: number, userId2: number): Promise<void> {
-    try {
-      await db.execute(sql`
-        UPDATE direct_messages 
-        SET is_read = TRUE 
-        WHERE receiver_id = ${userId1} AND sender_id = ${userId2} AND is_read = FALSE
-      `);
-    } catch (error) {
-      console.error('Error marking direct messages as read:', error);
-    }
-  }
 }
 
 export const storage = new DatabaseStorage();
