@@ -92,6 +92,7 @@
     "ws": "^8.18.0",
     "zod": "^3.24.2",
     "zod-validation-error": "^3.4.0",
+    "@rollup/rollup-linux-x64-gnu": "^4.24.2",
     "vite": "^5.4.14",
     "esbuild": "^0.25.0",
     "typescript": "5.6.3",
