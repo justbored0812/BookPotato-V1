@@ -3,7 +3,7 @@ import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { serveStatic, log } from "./static";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -86,6 +86,7 @@ if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
   // In development, handle Vite setup and local port listening
   (async () => {
     const server = await serverPromise;
+    const { setupVite } = await import("./vite");
     await setupVite(app, server);
     const port = 5000;
     server.listen({
