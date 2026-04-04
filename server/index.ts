@@ -86,7 +86,8 @@ if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
   // In development, handle Vite setup and local port listening
   (async () => {
     const server = await serverPromise;
-    const { setupVite } = await import("./vite");
+    const viteModule = "./vite";
+    const { setupVite } = await import(viteModule);
     await setupVite(app, server);
     const port = 5000;
     server.listen({
